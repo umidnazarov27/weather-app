@@ -34,8 +34,6 @@ function success(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
-    console.log(`${api.base}weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${api.key}`);
-
     fetch(`${api.base}weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${api.key}`)
         .then(weather => {
             return weather.json();
