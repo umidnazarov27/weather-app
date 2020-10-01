@@ -3,6 +3,51 @@ const api = {
     base: 'https://api.openweathermap.org/data/2.5/'
 };
 
+
+// === Day ===
+let now = new Date();
+let date = document.querySelector('.date');
+date.innerText = dateBuilder(now);
+
+function dateBuilder(d) {
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    let day = days[d.getDay()];
+    let date = d.getDate();
+    let month = months[d.getMonth()];
+    let year = d.getFullYear();
+
+    return `${day} ${date} ${month} ${year}`;
+}
+
+
+// === Your location's weather ===
+if (!navigator.geolocation) {
+    alert('Geolocation is not supported by your browser, please search your city');
+} else {
+    status.textContent = 'Locating…';
+    navigator.geolocation.getCurrentPosition(success, error);
+}
+
+function success(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    console.log(`${api.base}weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${api.key}`);
+
+    fetch(`${api.base}weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${api.key}`)
+        .then(weather => {
+            return weather.json();
+        }).then(displayResult);
+
+}
+
+function error() {
+    alert('Unable to retrieve your location or search your city');
+}
+
+// === Search ===
 const searchbox = document.querySelector('.search-box');
 searchbox.addEventListener('keypress', setQuerry);
 
@@ -23,10 +68,6 @@ function displayResult(weather) {
     let city = document.querySelector('.city');
     city.innerText = `${weather.name}, ${weather.sys.country}`;
 
-    let now = new Date();
-    let date = document.querySelector('.date');
-    date.innerText = dateBuilder(now);
-
     let temp = document.querySelector('.temp');
     temp.innerHTML = `${Math.round(weather.main.temp)}<span>°C</span>`;
 
@@ -35,17 +76,4 @@ function displayResult(weather) {
 
     let hilow = document.querySelector('.hi-low');
     hilow.innerText = `${Math.round(weather.main.temp_min)}°C / ${Math.round(weather.main.temp_max)}°C`;
-}
-
-
-function dateBuilder(d) {
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-    let day = days[d.getDay()];
-    let date = d.getDate();
-    let month = months[d.getMonth()];
-    let year = d.getFullYear();
-
-    return `${day} ${date} ${month} ${year}`;
 }
