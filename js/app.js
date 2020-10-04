@@ -1,12 +1,21 @@
+// === api ===
 const api = {
     key: '1c06c22300cc0c84a3f04bb5a324193e',
     base: 'https://api.openweathermap.org/data/2.5/'
 };
 
+// === Variables ===
+let city = document.querySelector('.city');
+let temp = document.querySelector('.temp');
+let weather_el = document.querySelector('.weather');
+let hi_low = document.querySelector('.hi-low');
+
 
 // === Day ===
 let now = new Date();
 let date = document.querySelector('.date');
+
+
 date.innerText = dateBuilder(now);
 
 function dateBuilder(d) {
@@ -62,15 +71,11 @@ function getResults(query) {
 }
 
 function displayResult(weather) {
-    let city = document.querySelector('.city');
     city.innerText = `${weather.name}, ${weather.sys.country}`;
 
-    let temp = document.querySelector('.temp');
     temp.innerHTML = `${Math.round(weather.main.temp)}<span>°C</span>`;
 
-    let weather_el = document.querySelector('.weather');
     weather_el.innerText = weather.weather[0].main;
 
-    let hilow = document.querySelector('.hi-low');
-    hilow.innerText = `${Math.round(weather.main.temp_min)}°C / ${Math.round(weather.main.temp_max)}°C`;
+    hi_low.innerText = `${Math.round(weather.main.temp_min)}°C / ${Math.round(weather.main.temp_max)}°C`;
 }
