@@ -1,2 +1,5 @@
-// prepros
+# prepros
 prepros.config
+
+#ide files
+.idea/

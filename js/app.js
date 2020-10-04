@@ -23,10 +23,10 @@ function dateBuilder(d) {
 
 
 // === Your location's weather ===
-if (!navigator.geolocation) {
-    alert('Geolocation is not supported by your browser, please search your city');
-} else {
+if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success, error);
+} else {
+    alert('Geolocation is not supported by your browser, please search your city');
 }
 
 function success(position) {
