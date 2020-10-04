@@ -26,7 +26,6 @@ function dateBuilder(d) {
 if (!navigator.geolocation) {
     alert('Geolocation is not supported by your browser, please search your city');
 } else {
-    status.textContent = 'Locating…';
     navigator.geolocation.getCurrentPosition(success, error);
 }
 
@@ -46,12 +45,12 @@ function error() {
 }
 
 // === Search ===
-const searchbox = document.querySelector('.search-box');
-searchbox.addEventListener('keypress', setQuerry);
+const searchBox = document.querySelector('.search-box');
+searchBox.addEventListener('keypress', setQuerry);
 
 function setQuerry(evt) {
     if (evt.keyCode == 13) {
-        getResults(searchbox.value);
+        getResults(searchBox.value);
     }
 }
 
